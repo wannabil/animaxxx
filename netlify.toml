@@ -1,6 +1,12 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "CI=false npm run build"
   publish = "build"
+
+[context.production.environment]
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+
+[context.deploy-preview.environment]
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
 
 [[redirects]]
   from = "/*"
