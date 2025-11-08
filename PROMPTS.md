@@ -2049,3 +2049,222 @@ JS: 79.77 kB (no change)
 
 ---
 
+## Prompt 14: Detail Page Card Readability Enhancement in Dark Mode
+**Date**: November 8, 2025  
+**Time**: 11:55 AM  
+**Context**: Further improving detail page text contrast and readability in dark mode
+
+### Prompt:
+```
+the card on card details should be reaadable on dark mode
+```
+
+### What This Addresses:
+- Improves detail page card text contrast in dark mode
+- Fixes hardcoded colors that didn't adapt to dark theme
+- Enhances meta information visibility
+- Makes synopsis and all text elements crystal clear
+
+### Implementation:
+
+**File Modified:**
+- `src/styles/DetailPage.css` - Enhanced base and dark mode styles
+
+**Base Color Fixes (Light & Dark Modes):**
+
+**1. Detail Title:**
+```css
+/* Before */
+color: #333;
+
+/* After */
+color: var(--color-text);
+```
+
+**2. Meta Labels:**
+```css
+/* Before */
+color: #666;
+
+/* After */
+color: var(--color-text-muted);
+```
+
+**3. Meta Values:**
+```css
+/* Before */
+color: #333;
+
+/* After */
+color: var(--color-text);
+```
+
+**Dark Mode Enhancements:**
+
+**1. Detail Content Card:**
+```css
+.dark .detail-content {
+  background: rgba(30, 41, 59, 0.9);  /* Increased from 0.8 */
+  border-color: rgba(255, 255, 255, 0.2);  /* Better visibility */
+}
+```
+
+**2. Title with Text Shadow:**
+```css
+.dark .detail-title {
+  color: var(--color-text);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);  /* Depth */
+}
+```
+
+**3. Meta Information Box:**
+```css
+.dark .detail-meta {
+  background: rgba(15, 23, 42, 0.7);  /* Increased from 0.6 */
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .meta-label {
+  opacity: 0.9;  /* Slightly transparent for hierarchy */
+}
+
+.dark .meta-value {
+  font-weight: 600;  /* Bolder for emphasis */
+}
+```
+
+**4. Synopsis Text:**
+```css
+.dark .synopsis {
+  color: var(--color-text);
+  line-height: 2;  /* Increased for better readability */
+  opacity: 0.95;
+}
+```
+
+**5. Section Titles:**
+```css
+.dark .section-title {
+  color: var(--color-text);
+  opacity: 0.95;
+}
+```
+
+**6. Image Container:**
+```css
+.dark .detail-image-container {
+  background: rgba(15, 23, 42, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+```
+
+---
+
+### Contrast Improvements:
+
+**Text Elements:**
+- ✅ Title: Bright white with subtle shadow
+- ✅ Subtitle: Gradient (already vibrant)
+- ✅ Japanese title: Muted but visible
+- ✅ Meta labels: Clear uppercase labels
+- ✅ Meta values: Bold white text
+- ✅ Section titles: Bright with good opacity
+- ✅ Synopsis: White with perfect line-height
+- ✅ Genre/Studio tags: Bright emerald
+
+**Background Opacity:**
+- Detail content: 0.8 → 0.9 (better contrast)
+- Meta box: 0.6 → 0.7 (clearer background)
+- Borders: 0.15 → 0.2 (more visible)
+
+---
+
+### Typography Enhancements:
+
+**With Inter Font:**
+- ✅ Titles are crisper and clearer
+- ✅ Meta values stand out more
+- ✅ Synopsis is easier to read
+- ✅ Better letter spacing
+- ✅ Professional appearance
+
+**Font Weight Improvements:**
+- Meta values: 500 → 600 (bolder in dark mode)
+- Better visual hierarchy
+- Clearer information structure
+
+---
+
+### Readability Checklist:
+
+**Detail Page Elements:**
+| Element | Light Mode | Dark Mode | Status |
+|---------|------------|-----------|--------|
+| Main Title | Clear | Bright white + shadow | ✅ |
+| English Title | Gradient | Vibrant gradient | ✅ |
+| Japanese Title | Muted gray | Light gray | ✅ |
+| Meta Labels | Muted | Clear muted | ✅ |
+| Meta Values | Dark text | Bold white | ✅ |
+| Section Headings | Dark | Bright white | ✅ |
+| Synopsis | Dark | Bright white | ✅ |
+| Genre Tags | Accent | Bright emerald | ✅ |
+| Studio Tags | Accent | Bright emerald | ✅ |
+
+---
+
+### Visual Impact:
+
+**Before (Dark Mode):**
+- Text hard to read
+- Low contrast
+- Washed out appearance
+- Hardcoded colors didn't adapt
+
+**After (Dark Mode):**
+- ✨ Crystal clear text
+- ✨ Perfect contrast ratios
+- ✨ Vibrant, readable colors
+- ✨ Professional appearance
+- ✨ Text shadow for depth
+- ✨ Bold meta values
+- ✨ Better line spacing
+
+---
+
+### Technical Details:
+
+**CSS Variable Usage:**
+- Replaced all hardcoded colors (#333, #666) with CSS variables
+- Ensures proper adaptation in both themes
+- Maintains consistency across the app
+
+**Opacity Strategy:**
+- Content backgrounds: 0.9 for solid feel
+- Text: 0.95 for slight softness
+- Labels: 0.9 for subtle hierarchy
+- Prevents harsh pure white
+
+**Performance:**
+- No bundle size increase
+- CSS-only changes
+- GPU-accelerated text rendering
+
+---
+
+### Result:
+
+✅ **Detail page is now perfectly readable in dark mode**  
+✅ **All text has high contrast**  
+✅ **Hardcoded colors replaced with CSS variables**  
+✅ **Professional appearance in both themes**  
+✅ **Better typography with Inter font**  
+✅ **Enhanced visual hierarchy**  
+
+**Files Affected:**
+- `src/styles/DetailPage.css` - Fixed base colors and enhanced dark mode
+- `PROMPTS.md` - Documented these improvements
+
+**Status:** ✅ Detail page dark mode readability is now excellent!
+
+---
+
