@@ -414,28 +414,66 @@
 
 /* Dark mode styles */
 .dark .search-input {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+}
+
+.dark .search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
 }
 
 .dark .search-input:focus {
   background: rgba(30, 41, 59, 0.95);
   border-color: transparent;
+  color: var(--color-text);
 }
 
-.dark .anime-card,
+.dark .anime-card {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .anime-card:hover {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark .anime-title {
+  color: var(--color-text);
+}
+
+.dark .anime-score {
+  color: var(--color-accent-light);
+}
+
+.dark .anime-episodes {
+  color: var(--color-text-muted);
+}
+
+.dark .anime-type {
+  background: rgba(79, 70, 229, 0.2);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-light);
+}
+
 .dark .filters-panel,
 .dark .filter-toggle,
 .dark .filter-group select,
 .dark .filter-group input {
-  background: rgba(30, 41, 59, 0.7);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-text);
 }
 
-.dark .anime-card:hover,
-.dark .filters-panel:hover {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: rgba(255, 255, 255, 0.2);
+.dark .filter-group label {
+  color: var(--color-text);
+}
+
+.dark .filter-group select option {
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--color-text);
 }
 
 .dark .bookmark-btn {
