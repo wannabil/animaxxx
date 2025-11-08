@@ -2722,7 +2722,49 @@ Configure Netlify to use `--legacy-peer-deps` flag during npm install to bypass 
 
 **Commit:** `78ac35d`
 
-**Status:** ✅ Netlify build issue resolved!
+**Status:** ⚠️ Initial fix attempted, but still had issues...
+
+---
+
+### Update: Corrected Configuration
+
+The initial approach didn't work because Netlify runs its own `npm install` before the custom build command. 
+
+**Updated `netlify.toml`:**
+
+```toml
+[build]
+  command = "CI=false npm run build"
+  publish = "build"
+
+[context.production.environment]
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+
+[context.deploy-preview.environment]
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+**Key Changes:**
+1. ✅ Set `NPM_CONFIG_LEGACY_PEER_DEPS = "true"` as environment variable
+   - npm respects this env var during automatic install phase
+   - Works for both production and preview deployments
+   
+2. ✅ Added `CI=false` to build command
+   - Prevents treating warnings as errors
+   - Ensures build succeeds with minor warnings
+
+3. ✅ Removed install command from build command
+   - Let Netlify handle install with the environment variable
+   - Cleaner separation of concerns
+
+**Commit:** `7706571`
+
+**Status:** ✅ Netlify build issue properly resolved!
 
 ---
 
