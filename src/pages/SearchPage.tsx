@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchAnime, setSearchQuery, setCurrentPage } from '../store/animeSlice';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { Anime } from '../types/anime';
 import { SearchBar } from '../components/SearchBar';
 import { FilterPanel } from '../components/FilterPanel';
 import { AnimeCard } from '../components/AnimeCard';
@@ -16,7 +17,7 @@ const SearchPage: React.FC = () => {
     (state) => state.anime
   );
   const [localQuery, setLocalQuery] = useState(searchQuery);
-  const [savedAnime, setSavedAnime] = useLocalStorage<number[]>('savedAnime', []);
+  const [savedAnime, setSavedAnime] = useLocalStorage<Anime[]>('savedAnime', []);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
     type: '',
@@ -55,16 +56,16 @@ const SearchPage: React.FC = () => {
     navigate(`/anime/${id}`);
   };
 
-  const toggleSaveAnime = (e: React.MouseEvent, animeId: number) => {
+  const toggleSaveAnime = (e: React.MouseEvent, anime: Anime) => {
     e.stopPropagation();
-    if (savedAnime.includes(animeId)) {
-      setSavedAnime(savedAnime.filter(id => id !== animeId));
+    if (savedAnime.some(saved => saved.mal_id === anime.mal_id)) {
+      setSavedAnime(savedAnime.filter(saved => saved.mal_id !== anime.mal_id));
     } else {
-      setSavedAnime([...savedAnime, animeId]);
+      setSavedAnime([...savedAnime, anime]);
     }
   };
 
-  const isSaved = (animeId: number) => savedAnime.includes(animeId);
+  const isSaved = (animeId: number) => savedAnime.some(anime => anime.mal_id === animeId);
 
   return (
     <div className="search-page">
@@ -96,7 +97,27 @@ const SearchPage: React.FC = () => {
           </div>
         )}
 
-        {!loading && searchResults.length > 0 && (
+        {!loading && !searchQuery && savedAnime.length > 0 && (
+          <div className="results-grid">
+            {savedAnime.map((anime) => (
+              <AnimeCard
+                key={anime.mal_id}
+                anime={anime}
+                isSaved={true}
+                onAnimeClick={handleAnimeClick}
+                onToggleSave={toggleSaveAnime}
+              />
+            ))}
+          </div>
+        )}
+
+        {!loading && !searchQuery && savedAnime.length === 0 && (
+          <div className="empty-state">
+            <p>No bookmarked anime yet. Search and bookmark your favorites!</p>
+          </div>
+        )}
+
+        {!loading && searchQuery && searchResults.length > 0 && (
           <>
             <div className="results-grid">
               {searchResults.map((anime) => (

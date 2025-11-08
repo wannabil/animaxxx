@@ -5,7 +5,7 @@ interface AnimeCardProps {
   anime: Anime;
   isSaved: boolean;
   onAnimeClick: (id: number) => void;
-  onToggleSave: (e: React.MouseEvent, id: number) => void;
+  onToggleSave: (e: React.MouseEvent, anime: Anime) => void;
 }
 
 export const AnimeCard: React.FC<AnimeCardProps> = ({
@@ -14,6 +14,9 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({
   onAnimeClick,
   onToggleSave,
 }) => {
+  // Safe access to image URL with fallback
+  const imageUrl = anime.images?.jpg?.image_url || anime.images?.jpg?.small_image_url || '';
+  
   return (
     <div
       className="anime-card"
@@ -21,7 +24,7 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({
     >
       <button
         className={`bookmark-btn ${isSaved ? 'saved' : ''}`}
-        onClick={(e) => onToggleSave(e, anime.mal_id)}
+        onClick={(e) => onToggleSave(e, anime)}
         aria-label={isSaved ? 'Remove from saved' : 'Save anime'}
       >
         <svg
@@ -39,11 +42,25 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({
         </svg>
       </button>
       <div className="anime-image-container">
-        <img
-          src={anime.images.jpg.image_url}
-          alt={anime.title}
-          className="anime-image"
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={anime.title}
+            className="anime-image"
+          />
+        ) : (
+          <div className="anime-image-placeholder" style={{ 
+            width: '100%', 
+            height: '100%', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            background: '#e5e7eb',
+            color: '#6b7280'
+          }}>
+            No Image
+          </div>
+        )}
       </div>
       <div className="anime-info">
         <h3 className="anime-title">{anime.title}</h3>

@@ -50,6 +50,10 @@ const DetailPage: React.FC = () => {
     return null;
   }
 
+  const imageUrl = selectedAnime.images?.jpg?.large_image_url || 
+                   selectedAnime.images?.jpg?.image_url || 
+                   '';
+
   return (
     <div className="detail-page">
       <button className="back-button" onClick={handleBackClick}>
@@ -58,11 +62,26 @@ const DetailPage: React.FC = () => {
 
       <div className="detail-content">
         <div className="detail-image-container">
-          <img
-            src={selectedAnime.images.jpg.large_image_url}
-            alt={selectedAnime.title}
-            className="detail-image"
-          />
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={selectedAnime.title}
+              className="detail-image"
+            />
+          ) : (
+            <div style={{ 
+              width: '100%', 
+              height: '100%', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              background: '#e5e7eb',
+              color: '#6b7280',
+              fontSize: '1.2rem'
+            }}>
+              No Image Available
+            </div>
+          )}
         </div>
 
         <div className="detail-info">
@@ -120,7 +139,7 @@ const DetailPage: React.FC = () => {
             )}
           </div>
 
-          {selectedAnime.genres.length > 0 && (
+          {selectedAnime.genres && selectedAnime.genres.length > 0 && (
             <div className="detail-section">
               <h3 className="section-title">Genres</h3>
               <div className="genre-list">
@@ -133,7 +152,7 @@ const DetailPage: React.FC = () => {
             </div>
           )}
 
-          {selectedAnime.studios.length > 0 && (
+          {selectedAnime.studios && selectedAnime.studios.length > 0 && (
             <div className="detail-section">
               <h3 className="section-title">Studios</h3>
               <div className="studio-list">
